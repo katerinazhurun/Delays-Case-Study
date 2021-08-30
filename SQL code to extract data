@@ -1,0 +1,6 @@
+select * from tutorial.us_flights
+join (SELECT unique_carrier, AVG(arr_delay)as avg_delay, count(1) as num_flights FROM tutorial.us_flights
+group by unique_carrier
+order by avg_delay ASC) sub
+on us_flights.unique_carrier = sub.unique_carrier
+where sub.num_flights >= 10000
